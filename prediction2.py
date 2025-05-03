@@ -9,7 +9,7 @@ from sklearn.metrics import mean_absolute_error
 fastf1.Cache.enable_cache("f1_cache")
 
 # Load 2024 Chinese GP race session
-session_2024 = fastf1.get_session(2024, "China", "R")
+session_2024 = fastf1.get_session(2024, "Miami", "R")
 session_2024.load()
 
 # Extract lap and sector times
@@ -23,16 +23,16 @@ for col in ["LapTime", "Sector1Time", "Sector2Time", "Sector3Time"]:
 # Group by driver to get average sector times per driver
 sector_times_2024 = laps_2024.groupby("Driver")[["Sector1Time (s)", "Sector2Time (s)", "Sector3Time (s)"]].mean().reset_index()
 
-# 2025 Qualifying Data Chinese GP
+# 2025 Sprint Qualifying Data Miami GP
 qualifying_2025 = pd.DataFrame({
     "Driver": ["Oscar Piastri", "George Russell", "Lando Norris", "Max Verstappen", "Lewis Hamilton",
                "Charles Leclerc", "Isack Hadjar", "Andrea Kimi Antonelli", "Yuki Tsunoda", "Alexander Albon",
                "Esteban Ocon", "Nico Hülkenberg", "Fernando Alonso", "Lance Stroll", "Carlos Sainz Jr.",
                "Pierre Gasly", "Oliver Bearman", "Jack Doohan", "Gabriel Bortoleto", "Liam Lawson"],
-    "QualifyingTime (s)": [90.641, 90.723, 90.793, 90.817, 90.927,
-                           91.021, 91.079, 91.103, 91.638, 91.706,
-                           91.625, 91.632, 91.688, 91.773, 91.840,
-                           91.992, 92.018, 92.092, 92.141, 92.174]
+    "QualifyingTime (s)": [87.277, 87.382, 87.194, 87.312, 87.602,
+                           87.533, 87.903, 87.241, 89.171, 87.583,
+                           88.070, 87.850, 87.994, 89.028, 87.899,
+                           88.167, 89.825, 89.171, 89.312, 88.375]
 })
 
 # Map full names to FastF1 3-letter codes
@@ -66,7 +66,7 @@ qualifying_2025["PredictedRaceTime (s)"] = predicted_race_times
 qualifying_2025 = qualifying_2025.sort_values(by="PredictedRaceTime (s)")
 
 # Print final predictions
-print("\n🏁 Predicted 2025 Chinese GP Winner with New Drivers and Sector Times 🏁\n")
+print("\n🏁 Predicted 2025 Miami GP Winner with New Drivers and Sector Times 🏁\n")
 print(qualifying_2025[["Driver", "PredictedRaceTime (s)"]])
 
 # Evaluate Model
